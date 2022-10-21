@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../../turn.min.js"></script>
+
+<style type="text/css">
+body{
+	background:rgb(22, 22, 22);
+}
+#book{
+	height:815px;
+	width:100%;
+	
+}
+
+#book .turn-page{
+	background-color:#F5F4EF;
+}
+
+#book .cover{
+	/* background:#333; */
+	background-image: url(img/cover.jpg);
+	background-size: cover;
+}
+
+#book .cover h1{
+	color:#F5F4EF;
+	text-align:center;
+	font-size:50px;
+	line-height:500px;
+	margin:0px;
+}
+
+#book .loader{
+	background-image:url(loader.gif);
+	width:24px;
+	height:24px;
+	display:block;
+	position:absolute;
+	top:238px;
+	left:188px;
+}
+
+#book .data{
+	text-align:center;
+	font-size:40px;
+	color:#999;
+	line-height:500px;
+}
+
+#book .odd{
+	background-image:-webkit-linear-gradient(left, #F5F4EF 95%, #e5e4de 100%);
+	background-image:-moz-linear-gradient(left, #F5F4EF 95%, #e5e4de 100%);
+	background-image:-o-linear-gradient(left, #F5F4EF 95%, #e5e4de 100%);
+	background-image:-ms-linear-gradient(left, #F5F4EF 95%, #e5e4de 100%);
+}
+
+#book .even{
+	background-image:-webkit-linear-gradient(right, #F5F4EF 95%, #e5e4de 100%);
+	background-image:-moz-linear-gradient(right, #F5F4EF 95%, #e5e4de 100%);
+	background-image:-o-linear-gradient(right, #F5F4EF 95%, #e5e4de 100%);
+	background-image:-ms-linear-gradient(right, #F5F4EF 95%, #e5e4de 100%);
+}
+</style>
+</head>
+<body>
+
+<div id="book">
+	<div class="cover"></div>
+	<div class="page odd">
+		<div style="height: 100%; background-image: url(img/intro-01.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page even">
+		<div style="height: 100%; background-image: url(img/intro-02.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page odd">
+		<div style="height: 100%; background-image: url(img/content-01.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page even">
+		<div style="height: 100%; background-image: url(img/content-02.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page odd">
+		<div style="height: 100%; background-image: url(img/chapter1-01.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page even">
+		<div style="height: 100%; background-image: url(img/chapter1-02.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page odd">
+		<div style="height: 100%; background-image: url(img/chapter1-03.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page even">
+		<div style="height: 100%; background-image: url(img/chapter1-04.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page odd">
+		<div style="height: 100%; background-image: url(img/chapter2-01.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page even">
+		<div style="height: 100%; background-image: url(img/chapter2-02.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page odd">
+		<div style="height: 100%; background-image: url(img/chapter2-03.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page even">
+		<div style="height: 100%; background-image: url(img/chapter2-04.jpg); background-size: cover; background-repeat: no-repeat;" ></div>
+	</div>
+	<div class="page odd"><h1>Chales Peguy's poem about Hope & Faith, Hope & Brave, Spinoza</h1></div>
+	<div class="page even"><h1>Revolution of Hope</h1></div>
+	<div class="page odd"><h1>Chales's Peguy poem about Hope & Misery</h1></div>
+	<div class="page even"><h1>What's Disappointment</h1></div>
+	<div class="page odd"><h1>Definition of Utopia</h1></div>
+	<div class="page even"><h1>Disappointment qoute</h1></div>
+	<div class="page odd"><h1>How to set the hope in the right way</h1></div>
+	<div class="page even"><h1>Snyder's Hope Theory</h1></div>
+	<div class="page odd"><h1>Template & Workspace</h1></div>
+	<div class="page even"><h1>Principle of Hope</h1></div>
+	<div class="page odd"><h1>Workspace</h1></div>
+	<div class="page even"><h1>hello</h1></div>
+	<div class="page odd"><h1>What does your hope look like?</h1></div>
+	<div class="page even"><h1>Exit & Extend</h1></div>
+</div>
+
+<script type="text/javascript">
+
+	// Sample using dynamic pages with turn.js
+
+	var numberOfPages = 26; 
+
+
+	// Adds the pages that the book will need
+	function addPage(page, book) {
+		// 	First check if the page is already in the book
+		if (!book.turn('hasPage', page)) {
+			// Create an element for this page
+			var element = $('<div />', {'class': 'page '+((page%2==0) ? 'odd' : 'even'), 'id': 'page-'+page}).html('<i class="loader"></i>');
+			// If not then add the page
+			book.turn('addPage', element, page);
+			// Let's assum that the data is comming from the server and the request takes 1s.
+			setTimeout(function(){
+					element.html('<div class="data">Data for page '+page+'</div>');
+			}, 1000);
+		}
+	}
+
+	$(window).ready(function(){
+		$('#book').turn({acceleration: true,
+							pages: numberOfPages,
+							elevation: 50,
+							gradients: !$.isTouch,
+							when: {
+								turning: function(e, page, view) {
+
+									// Gets the range of pages that the book needs right now
+									var range = $(this).turn('range', page);
+
+									// Check if each page is within the book
+									for (page = range[0]; page<=range[1]; page++) 
+										addPage(page, $(this));
+
+								},
+
+								turned: function(e, page) {
+									$('#page-number').val(page);
+								}
+							}
+						});
+
+		$('#number-pages').html(numberOfPages);
+
+		$('#page-number').keydown(function(e){
+
+			if (e.keyCode==13)
+				$('#book').turn('page', $('#page-number').val());
+				
+		});
+	});
+
+	$(window).bind('keydown', function(e){
+
+		if (e.target && e.target.tagName.toLowerCase()!='input')
+			if (e.keyCode==37)
+				$('#book').turn('previous');
+			else if (e.keyCode==39)
+				$('#book').turn('next');
+
+	});
+
+</script>
+
+
+</body>
+</html>
